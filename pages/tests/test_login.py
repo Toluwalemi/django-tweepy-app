@@ -17,6 +17,7 @@ class TestLoginView(TestCase):
         self.user = get_user_model().objects.create_user(username=self.username, password=self.password)
         logged_in = self.client.login(username=self.username, password=self.password)
         self.assertTrue(logged_in)
+        print("\n---------------------------------------------------------------------")
 
     # def test_login(self):
     #     response = self.client.post(reverse(
