@@ -35,8 +35,8 @@ class Link(models.Model):
     """
     A Model to store a tweet link in case a tweet has more than one link
     """
-    tip = models.ForeignKey(Tip, on_delete=models.CASCADE, related_name='links')
-    tweet_link = models.URLField(max_length=200)
+    tip = models.ForeignKey(Tip, on_delete=models.CASCADE, related_name='links', blank=True, null=True)
+    tweet_link = models.URLField(max_length=200, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
