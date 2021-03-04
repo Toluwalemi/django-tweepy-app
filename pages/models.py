@@ -1,5 +1,10 @@
+import logging
+
 from django.contrib.auth.models import User
 from django.db import models
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 # Create your models here.
