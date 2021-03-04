@@ -37,6 +37,7 @@ class Link(models.Model):
     """
     tip = models.ForeignKey(Tip, on_delete=models.CASCADE, related_name='links', blank=True, null=True)
     tweet_link = models.URLField(max_length=200, blank=True, null=True)
+    media_link = models.URLField(max_length=200, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
