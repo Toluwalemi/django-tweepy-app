@@ -1,9 +1,12 @@
+import logging
 import os
 
 import tweepy
 from django.test import TestCase
 
 from pages.views import verify_twitter_credentials
+
+logger = logging.getLogger(__name__)
 
 
 class TweetTest(TestCase):
@@ -26,15 +29,16 @@ class TweetTest(TestCase):
         """Verify the credentials with Tweepy"""
         auth = tweepy.OAuthHandler(str(self.consumer_key), str(self.consumer_secret))
         auth.set_access_token(str(self.oauth_access_token), str(self.oauth_access_token_secret))
-        result = verify_twitter_credentials(auth)
-        self.assertTrue(result, 'Authentication OK')
+        result = verify_twitter_credentials()
+        self.assertTrue(result, 'API created')
         print("\n---------------------------------------------------------------------")
 
     def test_invalid_twitter_credentials(self):
-        """Test that the Twiiter credentials provided are invalid"""
+        """Test that the Twiter credentials provided are invalid"""
         auth = tweepy.OAuthHandler("xF3VfjgH1FGQcuWOufvlhw", "xF3VfjgH1F4rfdGQcuWOufvlhw")
         auth.set_access_token("62259fE85Dq9oStl",
                               "tH9aKQbQQ1iRdYTcLSsPwitl44BkAc6jilrsU0ifnXvZhq")
-        result = verify_twitter_credentials(auth)
-        self.assertTrue(result, '"Error during authentication"')
+        # result = verify_twitter_credentials()
+        # self.assertTrue(result, '"Error during authentication"')
+        self.assertRaises(Exception, verify_twitter_credentials())
         print("\n---------------------------------------------------------------------")
