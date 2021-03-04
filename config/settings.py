@@ -138,31 +138,60 @@ ACCOUNT_LOGOUT_ON_GET = True
 now = datetime.now()
 DATETIME_FORMAT = now.strftime("%m/%d/%Y %H:%M:%S")
 
-# Logging Information
 LOGGING = {
     'version': 1,
-    # Version of logging
-    'disable_existing_loggers': False,
-    # disable logging
-    # Handlers #############################################################
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'simple': {
+            'format': '[%(asctime)s] %(levelname)s %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+    },
     'handlers': {
-        'file': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'development_logfile': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': './logs/log_file1.log',
+            'filename': './logs/django_dev.log',
+            'formatter': 'verbose'
         },
-        ########################################################################
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
+        # 'production_logfile': {
+        #     'level': 'ERROR',
+        #     'class': 'logging.handlers.RotatingFileHandler',
+        #     'filename': './logs/django_production.log',
+        #     'maxBytes': 1024 * 1024 * 100,  # 100MB
+        #     'backupCount': 5,
+        #     'formatter': 'simple'
+        # },
+        # 'dba_logfile': {
+        #     'level': 'DEBUG',
+        #     'class': 'logging.handlers.WatchedFileHandler',
+        #     'filename': './logs/django_dev.log',
+        #     'formatter': 'simple'
+        # },
     },
-    # Loggers ####################################################################
+    # 'root': {
+    #     'level': 'DEBUG',
+    #     'handlers': ['console'],
+    # },
     'loggers': {
         'django': {
-            'handlers': ['file', 'console'],
+            'handlers': ['development_logfile'],
             'level': 'DEBUG',
             'propagate': True,
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG')
         },
-    },
+    }
 }
+
+if DEBUG:
+    # make all loggers use the console.
+    for logger in LOGGING['loggers']:
+        LOGGING['loggers'][logger]['handlers'] = ['development_logfile', 'console']
