@@ -4,7 +4,7 @@ import os
 import tweepy
 from django.test import TestCase
 
-from pages.views import verify_twitter_credentials
+from pages.views import create_api, get_daily_tips
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +18,7 @@ class TweetTest(TestCase):
         self.oauth_access_token_secret = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
 
     def test_twitter_credentials(self):
-        """Test that Twitter's API credentials are available"""
+        """Test that Twitter's API credentials are available in environment"""
         self.assertTrue(os.environ['TWITTER_API_KEY'])
         self.assertTrue(os.environ['TWITTER_SECRET_KEY'])
         self.assertTrue(os.environ['TWITTER_ACCESS_TOKEN'])
@@ -29,7 +29,8 @@ class TweetTest(TestCase):
         """Verify the credentials with Tweepy"""
         auth = tweepy.OAuthHandler(str(self.consumer_key), str(self.consumer_secret))
         auth.set_access_token(str(self.oauth_access_token), str(self.oauth_access_token_secret))
-        result = verify_twitter_credentials()
+        result = create_api()
+        logger.info('result')
         self.assertTrue(result, 'API created')
         print("\n---------------------------------------------------------------------")
 
@@ -38,7 +39,29 @@ class TweetTest(TestCase):
         auth = tweepy.OAuthHandler("xF3VfjgH1FGQcuWOufvlhw", "xF3VfjgH1F4rfdGQcuWOufvlhw")
         auth.set_access_token("62259fE85Dq9oStl",
                               "tH9aKQbQQ1iRdYTcLSsPwitl44BkAc6jilrsU0ifnXvZhq")
-        # result = verify_twitter_credentials()
-        # self.assertTrue(result, '"Error during authentication"')
-        self.assertRaises(Exception, verify_twitter_credentials())
+        self.assertRaises(Exception, create_api())
+        print("\n---------------------------------------------------------------------")
+
+    def test_create_api(self):
+        """Test that the the api returns the correct response"""
+        response = {
+            "action": "ValidateCAC",
+            "recipients": {
+                "email_address": "me@you.com",
+                "name": "Musa Yahaya"
+            },
+            "parameters": {
+                "job_type": 5,
+                "first_name": "SMILE",
+                "last_name": "IDENTITY",
+                "country": "NG",
+                "id_type": "CAC",
+                "company": "Smile Identity Ltd",
+                "id_number": "0000003",
+                "entered": "true"
+            },
+        }
+        api = create_api()
+        result = get_daily_tips(api)
+        self.assertEqual(result, response)
         print("\n---------------------------------------------------------------------")

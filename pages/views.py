@@ -8,11 +8,9 @@ from django.views.generic import TemplateView
 logger = logging.getLogger(__name__)
 
 
-def verify_twitter_credentials():
+def create_api():
     """
     Test twitter credentials using Tweepy package
-    @param auth: authentication credentials
-    @type auth:
     @return: "Authentication OK" if valid else return "Error during authentication"
     @rtype: str
     """
@@ -33,6 +31,10 @@ def verify_twitter_credentials():
         raise e
     logger.info("API created")
     return api
+
+
+def get_daily_tips(api):
+    pass
 
 
 # Create your views here.
