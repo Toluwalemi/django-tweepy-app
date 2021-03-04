@@ -21,6 +21,7 @@ class Tip(models.Model):
     likes = models.IntegerField(blank=True, null=True)  # allow empty values for db and forms
     retweets = models.IntegerField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
