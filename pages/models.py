@@ -10,7 +10,7 @@ class Tip(models.Model):
     A Model to store tweet details from Daily Python Tip
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tips')
-    python_tip = models.CharField(max_length=280)
+    python_tip = models.TextField(blank=True)
     posted_by = models.CharField(max_length=20)
     is_published = models.BooleanField(default=True)
     likes = models.IntegerField(blank=True, null=True)  # allow empty values for db and forms

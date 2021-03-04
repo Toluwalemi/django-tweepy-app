@@ -19,7 +19,7 @@ class TipModelTest(TestCase):
                            is_published=True,
                            likes=3,
                            retweets=6,
-                           timestamp=now.strftime("%m/%d/%Y %H:%M:%S"))
+                           timestamp=now.strftime("%m/%d/%Y %H:%M:%S")) # e.g
 
     def test_str_method(self):
         """Test that the model returns the correct string"""
