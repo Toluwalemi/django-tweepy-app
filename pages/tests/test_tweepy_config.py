@@ -31,5 +31,6 @@ class TweetTest(TestCase):
         print("\n---------------------------------------------------------------------")
 
     def test_check_rate_limit(self):
+        """Test that the rate limit is not exceeded"""
         func = check_rate_limit()
         self.assertEqual(func, 200)
