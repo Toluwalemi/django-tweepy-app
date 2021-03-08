@@ -1,40 +1,57 @@
 import logging
-import os
 
-import tweepy
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.shortcuts import render
 from django.views.generic import TemplateView
 
 # Get an instance of a logger
+from pages.models import Tip, Link
+
 logger = logging.getLogger(__name__)
 
 
-def create_api():
-    """
-    Test twitter credentials using Tweepy package
-    @return: "Authentication OK" if valid else return "Error during authentication"
-    @rtype: str
-    """
-    # Twitter OAuth credentials
-    consumer_key = os.environ['TWITTER_API_KEY']
-    consumer_secret = os.environ['TWITTER_SECRET_KEY']
-    oauth_access_token = os.environ['TWITTER_ACCESS_TOKEN']
-    oauth_access_token_secret = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
-
-    auth = tweepy.OAuthHandler(str(consumer_key), str(consumer_secret))
-    auth.set_access_token(str(oauth_access_token), str(oauth_access_token_secret))
-    api = tweepy.API(auth, wait_on_rate_limit=True,
-                     wait_on_rate_limit_notify=True)
-    try:
-        api.verify_credentials()
-    except Exception as e:
-        logger.error("Error creating API", exc_info=True)
-        raise e
-    logger.info("API created")
-    return api
+def is_valid_queryparam(param):
+    return param != '' and param is not None
 
 
-def get_daily_tips(api):
-    pass
+def filter(request):
+    qs = Tip.objects.all()
+    links = Link.objects.all()
+    tip_contains_query = request.GET.get('tip_contains')
+    exact_posted_by = request.GET.get('exact_posted_by')
+
+    if is_valid_queryparam(tip_contains_query):
+        qs = qs.filter(python_tip__icontains=tip_contains_query)
+
+    if is_valid_queryparam(exact_posted_by):
+        qs = qs.filter(posted_by=exact_posted_by)
+
+    return qs
+
+
+def show_doc_info(request):
+    # exec = main()
+    if request.method == "GET":
+        qs = filter(request)
+        tips_render = Tip.objects.all()
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(qs, 10)
+        try:
+            tips_render = paginator.page(page)
+        except PageNotAnInteger:
+            tips_render = paginator.page(1)
+        except EmptyPage:
+            tips_render = paginator.page(paginator.num_pages)
+        context = {
+            'queryset': qs,
+            # 'tips': tips
+            'tips_render': tips_render,
+            # 'pages': pages,
+            # 'link_render': Link.objecs.all(),
+        }
+
+        return render(request, "pages/dashboard.html", context)
 
 
 # Create your views here.
