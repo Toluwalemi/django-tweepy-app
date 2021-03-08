@@ -1,11 +1,11 @@
-from django.urls import path, include
+from django.urls import path
 
-from .views import Home, show_doc_info  # new
+from .views import Home, show_tips
 
 app_name = 'pages'
 
 urlpatterns = [
     # path('accounts/', include('allauth.urls')),
     path('', Home.as_view(), name="home"),
-    path('dashboard/', show_doc_info, name="some_home"),
+    path('dashboard/', show_tips, name="dashboard"),
 ]

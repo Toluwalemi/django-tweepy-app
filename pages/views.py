@@ -29,7 +29,7 @@ def filter(request):
     return qs
 
 
-def show_doc_info(request):
+def show_tips(request):
     # exec = main()
     if request.method == "GET":
         qs = filter(request)
