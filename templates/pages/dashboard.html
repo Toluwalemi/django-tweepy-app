@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <title>Filter Form</title>
+    <title>Python Tips</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'pages/css/dashboard.css' %}">
@@ -87,14 +87,35 @@
             <!--            {% endfor %}-->
 
             <td>{{ info.posted_by }}</td>
-            <td>{{ info.tweet_link }}</td>
+            <td>
+                <a href="{{ info.tweet_link }}">{{ info.tweet_link }}</a>
+            </td>
             <!--            <td>{{ info.media_link }}</td>-->
             <td>{{ info.likes }}</td>
             <td>{{ info.retweets }}</td>
         </tr>
         {% endfor %}
         </tbody>
+
     </table>
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if tips_render.has_previous %}
+            <a href="?page=1">« first</a>
+            <a href="?page={{ tips_render.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ tips_render.number }} of {{ tips_render.paginator.num_pages }}.
+        </span>
+
+        {% if tips_render.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last »</a>
+        {% endif %}
+    </span>
+</div>
 
 </main>
 
