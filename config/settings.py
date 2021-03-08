@@ -135,63 +135,68 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGIN_REDIRECT_URL = "pages:home"
 ACCOUNT_LOGOUT_ON_GET = True
 
-now = datetime.now()
-DATETIME_FORMAT = now.strftime("%m/%d/%Y %H:%M:%S")
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'verbose': {
-            'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
-            'datefmt': '%Y-%m-%d %H:%M:%S'
-        },
-        'simple': {
-            'format': '[%(asctime)s] %(levelname)s %(message)s',
-            'datefmt': '%Y-%m-%d %H:%M:%S'
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple'
-        },
-        'development_logfile': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': './logs/django_dev.log',
-            'formatter': 'verbose'
-        },
-        # 'production_logfile': {
-        #     'level': 'ERROR',
-        #     'class': 'logging.handlers.RotatingFileHandler',
-        #     'filename': './logs/django_production.log',
-        #     'maxBytes': 1024 * 1024 * 100,  # 100MB
-        #     'backupCount': 5,
-        #     'formatter': 'simple'
-        # },
-        # 'dba_logfile': {
-        #     'level': 'DEBUG',
-        #     'class': 'logging.handlers.WatchedFileHandler',
-        #     'filename': './logs/django_dev.log',
-        #     'formatter': 'simple'
-        # },
-    },
-    # 'root': {
-    #     'level': 'DEBUG',
-    #     'handlers': ['console'],
-    # },
-    'loggers': {
-        'django': {
-            'handlers': ['development_logfile'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    }
-}
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+# now = datetime.now()
+# DATETIME_FORMAT = now.strftime("%m/%d/%Y %H:%M:%S")
 
-if DEBUG:
-    # make all loggers use the console.
-    for logger in LOGGING['loggers']:
-        LOGGING['loggers'][logger]['handlers'] = ['development_logfile', 'console']
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': True,
+#     'formatters': {
+#         'verbose': {
+#             'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
+#             'datefmt': '%Y-%m-%d %H:%M:%S'
+#         },
+#         'simple': {
+#             'format': '[%(asctime)s] %(levelname)s %(message)s',
+#             'datefmt': '%Y-%m-%d %H:%M:%S'
+#         },
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'simple'
+#         },
+#         'development_logfile': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': './logs/django_dev.log',
+#             'formatter': 'verbose'
+#         },
+#         # 'production_logfile': {
+#         #     'level': 'ERROR',
+#         #     'class': 'logging.handlers.RotatingFileHandler',
+#         #     'filename': './logs/django_production.log',
+#         #     'maxBytes': 1024 * 1024 * 100,  # 100MB
+#         #     'backupCount': 5,
+#         #     'formatter': 'simple'
+#         # },
+#         # 'dba_logfile': {
+#         #     'level': 'DEBUG',
+#         #     'class': 'logging.handlers.WatchedFileHandler',
+#         #     'filename': './logs/django_dev.log',
+#         #     'formatter': 'simple'
+#         # },
+#     },
+#     # 'root': {
+#     #     'level': 'DEBUG',
+#     #     'handlers': ['console'],
+#     # },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['development_logfile'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     }
+# }
+#
+# if DEBUG:
+#     # make all loggers use the console.
+#     for logger in LOGGING['loggers']:
+#         LOGGING['loggers'][logger]['handlers'] = ['development_logfile', 'console']
