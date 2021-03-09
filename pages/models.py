@@ -53,7 +53,7 @@ class Contribution(models.Model):
     (https://docs.google.com/forms/d/e/1FAIpQLScsHklRH2-uplGYH_vxhtIin-zJS44bXQkAWCH7_N7nUdrGXw/viewform)
     """
     contributor = models.ForeignKey(User, on_delete=models.CASCADE)
-    daily_tip = models.CharField(max_length=140, blank=False, null=False)
+    daily_tip = models.CharField(max_length=140, unique=True, blank=False, null=False)
     name_or_id = models.CharField(max_length=40, blank=True, null=True)
     email = models.EmailField(max_length=254, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)

@@ -1,7 +1,12 @@
 from django.contrib import admin
 
 # Register your models here.
-from pages.models import Link, Tip
+from pages.models import Link, Tip, Contribution
+
+
+@admin.register(Contribution)
+class ContributionAdmin(admin.ModelAdmin):
+    list_display = ['id', 'daily_tip', 'name_or_id', 'email']
 
 
 @admin.register(Tip)
@@ -11,13 +16,6 @@ class TipAdmin(admin.ModelAdmin):
 
 class LinkAdmin(admin.ModelAdmin):
     list_display = ['tip_id', 'media_link']
-
-    # def view_tweets_link(self, obj):
-    #     count = obj.links.count()
-    #     url = (reverse("admin:pages_link_changelist")
-    #            + "?")
-    #     + urlencode({""})
-    #     return formate_html('<a href="{}'>{} Links)
 
 
 admin.site.register(Link, LinkAdmin)
