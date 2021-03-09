@@ -1,8 +1,8 @@
 # Create your views here.
 from rest_framework import generics
 
-from pages.models import Tip, Contributor
-from .serializers import TipSerializer, ContributorSerializer
+from pages.models import Tip, Contribution
+from .serializers import TipSerializer, ContributionSerializer
 
 
 class TipAPIView(generics.ListAPIView):
@@ -12,8 +12,8 @@ class TipAPIView(generics.ListAPIView):
 
 
 class PostTip(generics.CreateAPIView):
-    queryset = Contributor.objects.all()
-    serializer_class = ContributorSerializer
+    queryset = Contribution.objects.all()
+    serializer_class = ContributionSerializer
 
 
 class DetailTip(generics.RetrieveUpdateDestroyAPIView):

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from pages.models import Tip, Contributor
+from pages.models import Tip, Contribution
 
 
 class TipSerializer(serializers.ModelSerializer):
@@ -9,7 +9,7 @@ class TipSerializer(serializers.ModelSerializer):
         fields = ('id', 'python_tip', 'posted_by', 'likes', 'retweets', 'tweet_link', 'timestamp')
 
 
-class ContributorSerializer(serializers.ModelSerializer):
+class ContributionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Contributor
-        fields = ('daily_tip', 'name_or_id', 'email')
+        model = Contribution
+        fields = ('id', 'contributor', 'daily_tip', 'name_or_id', 'email')
