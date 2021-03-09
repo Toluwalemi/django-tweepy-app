@@ -75,7 +75,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for info in queryset %}
+        {% for info in tips_render %}
         <tr>
             <td>{{ info.id }}</td>
             <td>{{ info.timestamp }}</td>
@@ -111,8 +111,8 @@
         </span>
 
         {% if tips_render.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last »</a>
+            <a href="?page={{ tips_render.next_page_number }}">next</a>
+            <a href="?page={{ tips_render.paginator.num_pages }}">last »</a>
         {% endif %}
     </span>
 </div>

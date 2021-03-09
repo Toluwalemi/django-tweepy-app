@@ -33,7 +33,7 @@ def show_tips(request):
     # exec = main()
     if request.method == "GET":
         qs = filter(request)
-        tips_render = Tip.objects.all()
+        # tips_render = Tip.objects.all()
         page = request.GET.get('page', 1)
 
         paginator = Paginator(qs, 10)
@@ -44,10 +44,7 @@ def show_tips(request):
         except EmptyPage:
             tips_render = paginator.page(paginator.num_pages)
         context = {
-            'queryset': qs,
-            # 'tips': tips
             'tips_render': tips_render,
-            # 'pages': pages,
             # 'link_render': Link.objecs.all(),
         }
 
