@@ -61,7 +61,8 @@ def get_user_timeline(api):
                                "tweet_link": f"https://twitter.com/python_tip/status/{item['id']}",
                                }
                 if len(item['entities']['user_mentions']) > 0:
-                    my_response['posted_by'] = item['entities']['user_mentions'][0]
+                    z = item['entities']['user_mentions'][0]
+                    my_response['posted_by'] = z['screen_name']
                 if 'extended_entities' in item:
                     my_response['media_links'] = item['extended_entities']['media']
                 responses.append(my_response)
@@ -73,6 +74,7 @@ def get_user_timeline(api):
                 tip_objects = Tip.objects.create(**response)
                 if 'media_links' in response:
                     for j in media_links:
+                        print(j['media_url_https'])
                         Link.objects.create(media_link=j['media_url_https'], tip=tip_objects)
 
     except tweepy.RateLimitError as e:
