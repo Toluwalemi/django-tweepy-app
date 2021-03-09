@@ -1,6 +1,7 @@
 import logging
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import F, Sum
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -15,7 +16,8 @@ def is_valid_queryparam(param):
 
 
 def filter(request):
-    qs = Tip.objects.all()
+    qs = Tip.objects.all(). \
+        annotate(popularity=Sum(F('likes') + F('retweets'))).order_by('popularity')
     links = Link.objects.all()
     tip_contains_query = request.GET.get('tip_contains')
     exact_posted_by = request.GET.get('exact_posted_by')
