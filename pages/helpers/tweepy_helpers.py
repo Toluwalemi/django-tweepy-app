@@ -91,8 +91,8 @@ def main():
     api = create_api()
     while True:
         get_user_timeline(api)
-        logger.info("waiting")
-        time.sleep(60 * 1440)
+        # logger.info("waiting")
+        # time.sleep(60 * 1440)
 
 
 if __name__ == "__main__":

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.twitter",
 
     "rest_framework",  # 3rd party
+    "django_apscheduler",
 
     # Local
     'pages.apps.PagesConfig',

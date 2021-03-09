@@ -30,7 +30,6 @@ def filter(request):
 
 
 def show_tips(request):
-    # exec = main()
     if request.method == "GET":
         qs = filter(request)
         # tips_render = Tip.objects.all()
