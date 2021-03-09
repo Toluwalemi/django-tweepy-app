@@ -46,8 +46,11 @@ INSTALLED_APPS = [
     # social providers
     "allauth.socialaccount.providers.twitter",
 
+    "rest_framework",  # 3rd party
+
     # Local
     'pages.apps.PagesConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
