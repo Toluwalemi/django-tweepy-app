@@ -11,7 +11,7 @@ class TipAPIView(generics.ListAPIView):
     paginate_by = 20
 
 
-class PostTip(generics.CreateAPIView):
+class PostContribution(generics.ListCreateAPIView):
     queryset = Contribution.objects.all()
     serializer_class = ContributionSerializer
 
