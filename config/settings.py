@@ -203,3 +203,9 @@ STATICFILES_DIRS = (
 #     # make all loggers use the console.
 #     for logger in LOGGING['loggers']:
 #         LOGGING['loggers'][logger]['handlers'] = ['development_logfile', 'console']
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
