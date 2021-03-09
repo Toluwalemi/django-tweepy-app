@@ -1,6 +1,5 @@
 import logging
 
-from django.contrib.auth.models import User
 from django.db import models
 
 # Get an instance of a logger
@@ -45,3 +44,21 @@ class Link(models.Model):
 
     def __str__(self):
         return self.media_link
+
+
+class Contributor(models.Model):
+    """
+    A Model to mock @python_tip google form
+    (https://docs.google.com/forms/d/e/1FAIpQLScsHklRH2-uplGYH_vxhtIin-zJS44bXQkAWCH7_N7nUdrGXw/viewform)
+    """
+    daily_tip = models.CharField(max_length=140, blank=False, null=False)
+    name_or_id = models.CharField(max_length=40, blank=True, null=True)
+    email = models.EmailField(max_length=254, blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Contributors"
+
+    def __str__(self):
+        return self.daily_tip
